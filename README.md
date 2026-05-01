@@ -49,7 +49,16 @@
 - macOS 또는 OpenCV 카메라 접근이 가능한 환경
 - 웹캠
 
-## 설치
+## 설치 및 실행 환경
+
+권장 환경:
+
+- macOS Apple Silicon
+- Python 3.13
+- 프로젝트 루트에 생성한 가상환경 `.venv`
+- 터미널 앱(`Terminal`, `iTerm` 등)에 카메라 권한 허용
+
+가상환경 생성 및 패키지 설치:
 
 ```bash
 python3 -m venv .venv
@@ -57,18 +66,30 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
+패키지 설치 없이 `python3 main.py`를 바로 실행하면 `ModuleNotFoundError: No module named 'mediapipe'`가 발생할 수 있습니다. 반드시 위 가상환경을 활성화하거나 `.venv/bin/python`으로 실행하세요.
+
+macOS에서 웹캠이 열리지 않으면 다음을 확인하세요.
+
+- `시스템 설정 > 개인정보 보호 및 보안 > 카메라`에서 사용하는 터미널 앱의 권한을 허용
+- 이미 거부한 상태라면 같은 터미널에서 `tccutil reset Camera` 실행 후 터미널을 다시 열어 권한 팝업 재승인
+
+참고:
+
+- `mediapipe`가 `matplotlib` 캐시를 사용하므로, 프로젝트는 `.cache/matplotlib`를 자동으로 사용하도록 설정되어 있습니다.
+- 처음 실행 시 font cache 생성 때문에 시작이 몇 초 정도 느릴 수 있습니다.
+
 ## 실행
 
 기본 실행:
 
 ```bash
-python3 main.py
+.venv/bin/python main.py
 ```
 
 옵션 지정:
 
 ```bash
-python3 main.py --camera-id 0 --width 1280 --height 720 --mode auto
+.venv/bin/python main.py --camera-id 0 --width 1280 --height 720 --mode auto
 ```
 
 ### 실행 옵션
@@ -101,4 +122,4 @@ python3 main.py --camera-id 0 --width 1280 --height 720 --mode auto
 ## 주의 사항
 
 - 에디터에서 `mediapipe` import가 희게 보이면, 프로젝트 인터프리터가 가상환경 Python을 가리키는지 먼저 확인하세요.
-- macOS에서 Matplotlib 캐시 경고가 보일 수 있지만, 현재 프로젝트의 자세 추적 동작과 직접적인 import 실패는 별개일 수 있습니다.
+- macOS에서 `카메라를 열지 못했습니다: 0`가 출력되면 코드 문제보다 터미널의 카메라 권한 또는 다른 앱의 카메라 점유를 먼저 확인하세요.

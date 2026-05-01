@@ -2,4 +2,6 @@ mediapipe==0.10.33
 opencv-contrib-python==4.13.0.92
 numpy==2.4.4
 Pillow==12.2.0
-
+fastapi==0.116.1
+uvicorn==0.38.0
+python-multipart==0.0.20
